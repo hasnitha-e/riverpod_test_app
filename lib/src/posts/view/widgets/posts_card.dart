@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:riverpod_app/features/posts/model/posts_model.dart';
-import 'package:riverpod_app/features/utils/colors.dart';
+import 'package:riverpod_app/src/posts/model/posts_model.dart';
+import 'package:riverpod_app/src/utils/colors.dart';
 
 
 class PostCard extends StatelessWidget {

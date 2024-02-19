@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riverpod_app/features/posts/view/home_screen.dart';
+import 'package:riverpod_app/src/posts/view/home_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child:  MyApp()));
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
        fontFamily: GoogleFonts.lato().fontFamily,
             primarySwatch: Colors.indigo
       ),
-      home: const HomePage(),
+      home:  HomePage(),
     );
   }
 }

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_app/features/posts/model/posts_model.dart';
-import 'package:riverpod_app/features/posts/view/widgets/posts_card.dart';
+import 'package:riverpod_app/src/posts/model/posts_model.dart';
+import 'package:riverpod_app/src/posts/view/widgets/posts_card.dart';
 
 class PostsGrid extends StatelessWidget {
-  const PostsGrid({
+   PostsGrid({
     super.key,
     required this.posts,
-    required this.crosscount,
+    required this.crosscount,required this.controller
   });
 
   final List<Posts> posts;
   final int crosscount;
+  ScrollController controller;
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(scrollDirection: Axis.vertical,
+    return GridView.builder(
+      scrollDirection: Axis.vertical,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         mainAxisExtent: 120,
         crossAxisCount: crosscount,

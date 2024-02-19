@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_app/features/posts/model/posts_model.dart';
-import 'package:riverpod_app/features/posts/view/widgets/posts_card.dart';
+import 'package:riverpod_app/src/posts/model/posts_model.dart';
+import 'package:riverpod_app/src/posts/view/widgets/posts_card.dart';
 
 class PostListView extends StatelessWidget {
-  const PostListView({
+ PostListView({
     super.key,
-    required this.posts,
+    required this.posts,required this.controller
   });
 
   final List<Posts> posts;
+  ScrollController controller;
 
   @override
   Widget build(BuildContext context) {
