@@ -10,11 +10,11 @@ class HomePage extends ConsumerWidget {
   HomePage({Key? key}) : super(key: key);
   ScrollController controller = ScrollController();
   int _displayLimit = 10;
-  int _displayOffset = 0;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-   
     final AsyncValue<List<Posts>> getPosts = ref.watch(postProvider);
+    final int offset = ref.watch(paginationProvider);
 
     return Scaffold(
       appBar: appbarWidget(),
@@ -22,10 +22,9 @@ class HomePage extends ConsumerWidget {
         padding: mainPadding,
         child: getPosts.when(
           data: (data) {
-          
-            List<Posts> allPosts = data ?? [];
+            List<Posts> allPosts = data;
             final List<Posts> paginatedData = allPosts.sublist(
-                0, (_displayOffset + _displayLimit).clamp(0, allPosts.length));
+                0, (offset + _displayLimit).clamp(0, allPosts.length));
 
             return Column(
               children: [
@@ -38,18 +37,19 @@ class HomePage extends ConsumerWidget {
                   ],
                 ),
                 Expanded(
-                  child:
-                      PostsView(posts: paginatedData, controller: controller),
-                ),
-                if (data.length > _displayOffset + _displayLimit)
-                  ElevatedButton(
-                    onPressed: () {
-                      _displayOffset += _displayLimit;
-                      ref.refresh(postProvider);
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (ScrollNotification scrollInfo) {
+                      if (scrollInfo.metrics.pixels ==
+                          scrollInfo.metrics.maxScrollExtent) {
+                        ref.read(paginationProvider.notifier)
+                            .incrementOffset(_displayLimit, allPosts.length);
+                        ref.refresh(postProvider);
+                      }
+                      return false;
                     },
-                    child: Text('Load More'),
-                  )
-              
+                    child: PostsView(posts: paginatedData, controller: controller),
+                  ),
+                ),
               ],
             );
           },

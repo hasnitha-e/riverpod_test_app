@@ -12,3 +12,13 @@ final postProvider = FutureProvider<List<Posts>>((ref) async {
       .toList();
 return postlist;
 });
+final paginationProvider = StateNotifierProvider<PaginationNotifier, int>((ref) {
+  return PaginationNotifier();
+});
+class PaginationNotifier extends StateNotifier<int> {
+  PaginationNotifier() : super(0);
+
+  void incrementOffset(int limit, int totalItems) {
+    state = (state + limit).clamp(0, totalItems);
+  }
+}
